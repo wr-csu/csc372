@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class bdayGUI extends JFrame implements ActionListener{
 	//many many traits
@@ -125,29 +125,24 @@ public class bdayGUI extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		//get action listener to respond to user input from button
-		String userInput;
-		int calcMonth, calcDay, calcYear, day, month, year;
 		//find accurate age with date month and year
-		Date date = new Date();
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		year  = localDate.getYear();
-		month = localDate.getMonthValue();
-		day   = localDate.getDayOfMonth();
-		
-		userInput = monthField.getText();
-		calcMonth = Math.abs(month - Integer.parseInt(userInput));
-		userInput = dayField.getText();
-		calcDay = Math.abs(day - Integer.parseInt(userInput));		
-		userInput = yearField.getText();
-		calcYear = Math.abs(year - Integer.parseInt(userInput));
-		
-		ageField.setText(calcDay + " Days, " + calcMonth + " Months, and " + calcYear + " Years"); //warning not good enough edit after frame is good to go	
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("MM dd yyyy");
+		String userInput = monthField.getText() + " " + dayField.getText() + " " + yearField.getText();
+		LocalDate birthDate = LocalDate.parse(userInput, format);
+        LocalDate currentDate = LocalDate.now();
+
+        Period period = Period.between(birthDate, currentDate);
+        int years = period.getYears();
+        int months = period.getMonths();
+        int days = period.getDays();
+       
+		ageField.setText(days + " Days, " + months + " Months, and " + years + " Years"); 		
 	} //close action event
 
 	
 	public static void main(String[] args) {
 		bdayGUI testing = new bdayGUI();
-	}//main
+	}// close main
 }//close class
 
 
