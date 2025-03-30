@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class bdayGUI extends JFrame implements ActionListener{
+public class BirthdayGUI extends JFrame implements ActionListener{
 	//many many traits
 	private JPanel panels;
 	private JPanel panelA;
@@ -34,7 +34,7 @@ public class bdayGUI extends JFrame implements ActionListener{
 	GridBagConstraints c;
 		
 	//constructor
-	public bdayGUI() {
+	public BirthdayGUI() {
 		//initialize button, panels, fields, labels
 		button = new JButton("Calculate Current Age");
 		button.addActionListener(this);
@@ -141,7 +141,7 @@ public class bdayGUI extends JFrame implements ActionListener{
 
 	
 	public static void main(String[] args) {
-		bdayGUI testing = new bdayGUI();
+		BirthdayGUI testing = new BirthdayGUI();
 	}// close main
 }//close class
 
