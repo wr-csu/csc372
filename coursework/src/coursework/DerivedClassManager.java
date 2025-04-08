@@ -9,7 +9,7 @@ public class DerivedClassManager extends SuperClassEmployee {
 	@Override
 	public void employeeSummary() {
 		super.employeeSummary();
-		System.out.println("	Department: " + department);
+		System.out.print("\n   Department: " + department);
 	}
 	
 

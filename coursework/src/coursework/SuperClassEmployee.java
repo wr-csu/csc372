@@ -1,17 +1,14 @@
 package coursework;
-
 public class SuperClassEmployee {
 		//fields v
 		protected String firstName;
 		protected String lastName;
 		protected int employeeID;
-		protected double salary;
-		
+		protected double salary;	
 		//constructor method v
 		public SuperClassEmployee() {
 			salary = 0;	
-		}
-		
+		}	
 		//setters v
 		public void setFirstName(String first) {
 			firstName = first;
@@ -22,7 +19,6 @@ public class SuperClassEmployee {
 		public void setID(int id) {
 			employeeID = id;
 		}
-		
 		//getters v
 		public String getFirstName() {
 			return firstName;
@@ -33,12 +29,13 @@ public class SuperClassEmployee {
 		public int getEmployeeID() {
 			return employeeID;
 		}
-		
 		//printAll method v
 		public void employeeSummary() {
-			System.out.println("Employee Name: " + lastName + ", " + firstName);
-			System.out.println("	Employee ID: " + employeeID);
-			System.out.println("	Salary: " + salary);
+			System.out.printf("Employee Name: %s, %s\n   Employee ID: %d\n   Salary: %.2f", lastName, firstName, employeeID, salary);
+			
+			//System.out.println("Employee Name: " + lastName + ", " + firstName);
+			//System.out.println("	Employee ID: " + employeeID);
+			//System.out.println("	Salary: " + salary);
 		}
 	}
 
