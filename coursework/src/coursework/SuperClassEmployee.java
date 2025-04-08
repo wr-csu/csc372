@@ -32,10 +32,6 @@ public class SuperClassEmployee {
 		//printAll method v
 		public void employeeSummary() {
 			System.out.printf("Employee Name: %s, %s\n   Employee ID: %d\n   Salary: %.2f", lastName, firstName, employeeID, salary);
-			
-			//System.out.println("Employee Name: " + lastName + ", " + firstName);
-			//System.out.println("	Employee ID: " + employeeID);
-			//System.out.println("	Salary: " + salary);
 		}
 	}
 

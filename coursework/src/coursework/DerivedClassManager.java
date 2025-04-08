@@ -11,6 +11,4 @@ public class DerivedClassManager extends SuperClassEmployee {
 		super.employeeSummary();
 		System.out.print("\n   Department: " + department);
 	}
-	
-
 }
