@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class BirthdayGUI extends JFrame implements ActionListener{
 	//many many traits
 	private JPanel panels;
+	private JPanel panel0;
 	private JPanel panelA;
 	private JPanel panelB;
 	private JPanel panelC;
@@ -29,43 +30,40 @@ public class BirthdayGUI extends JFrame implements ActionListener{
 	private JLabel day;
 	private JLabel year;
 	private JButton button;
+	private JButton newButton;
+	private JTextField newButtonField;
 	
 	GridBagLayout gridLT;
 	GridBagConstraints c;
+	
+	//text field helper method 
+	private JTextField createTextField(int columns, boolean editable) {
+	    JTextField textField = new JTextField(columns);
+	    textField.setEditable(editable);
+	    return textField;
+	}
 		
 	//constructor
 	public BirthdayGUI() {
 		//initialize button, panels, fields, labels
 		button = new JButton("Calculate Current Age");
-		button.addActionListener(this);
+		button.addActionListener(e -> calculateAge()); 
 		
+		newButton = new JButton("Find Today's Date");
+		newButton.addActionListener(e -> newButtonField.setText("Current Date is: " + LocalDate.now())); 
 		
+		//text fields
+		monthField = createTextField(10, true);
+		dayField = createTextField(10, true);
+		yearField = createTextField(10, true);
+		ageField = createTextField(25, false);
+		newButtonField = createTextField(25, false);
+		
+		//labels
 		month = new JLabel("Enter Birth Month(mm):");
-		monthField = new JTextField();
 		day = new JLabel("Enter Birth Day(dd):");
-		dayField = new JTextField();
 		year = new JLabel("Enter Birth Year (yyyy):");
-		yearField = new JTextField();
-
-		ageField = new JTextField();
 		
-		//set text fields to editable with exception of output age field
-		monthField = new JTextField(10);
-	    monthField.setEditable(true);
-	    monthField.setText("");
-
-	    
-	    dayField = new JTextField(10);
-	    dayField.setEditable(true);
-	    dayField.setText("");
-
-	    
-	    yearField = new JTextField(10);
-	    yearField.setEditable(true);
-	    yearField.setText("");
-	    
-	    ageField = new JTextField(25);    
-	    ageField.setEditable(false);				
 		
 	    gridLT = new GridBagLayout();
 		c = new GridBagConstraints();
@@ -74,6 +72,10 @@ public class BirthdayGUI extends JFrame implements ActionListener{
 		panels = new JPanel();
 		panels.setLayout(gridLT);
 		
+		panel0 = new JPanel();
+		panel0.setBackground(Color.white);
+		panel0.add(newButton);
+		panel0.add(newButtonField);
 		panelA = new JPanel();
 		panelA.setBackground(Color.red);
 		panelA.add(month);
@@ -89,6 +91,7 @@ public class BirthdayGUI extends JFrame implements ActionListener{
 		panelD = new JPanel();
 		panelD.setBackground(Color.green);
 		panelD.add(button);
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.5;
 		c.gridx = 2;
@@ -99,17 +102,22 @@ public class BirthdayGUI extends JFrame implements ActionListener{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.BOTH;
-		panels.add(panelA, c);	
+		panels.add(panel0, c);
+		
 		c.gridx = 0;
 		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		panels.add(panelA, c);	
+		c.gridx = 0;
+		c.gridy = 2;
 		c.fill = GridBagConstraints.BOTH;		
 		panels.add(panelB, c);
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.fill = GridBagConstraints.BOTH;
 		panels.add(panelC, c);
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		c.fill = GridBagConstraints.BOTH;
 		panels.add(panelD, c);
 		
@@ -122,21 +130,37 @@ public class BirthdayGUI extends JFrame implements ActionListener{
 		} //close constructor
 
 
+	private void calculateAge() {
+		try {
+			
+			//get user birthday and current date	
+			String userInput = monthField.getText() + " " + dayField.getText() + " " + yearField.getText();
+			LocalDate currentDate = LocalDate.now();
+			
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("MM dd yyyy");
+			LocalDate birthDate = LocalDate.parse(userInput, format);		
+		
+			if (birthDate.isAfter(currentDate)){
+	            ageField.setText("Error: Invalid BirthDay.");
+	            return;
+	         }
+			//calculating age
+			Period period = Period.between(birthDate, currentDate);
+			int years = period.getYears(), months = period.getMonths(), days = period.getDays();
+			
+			//output without errors
+			ageField.setText(days + " Days, " + months + " Months, and " + years + " Years"); 	
+	      				
+		} catch (Exception e) {
+		       
+			ageField.setText("Please enter a valid date (MM DD YYYY).");
+
+		} //close try-catch
+	}// calculate age method
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		//get action listener to respond to user input from button
-		//find accurate age with date month and year
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("MM dd yyyy");
-		String userInput = monthField.getText() + " " + dayField.getText() + " " + yearField.getText();
-		LocalDate birthDate = LocalDate.parse(userInput, format);
-        LocalDate currentDate = LocalDate.now();
-
-        Period period = Period.between(birthDate, currentDate);
-        int years = period.getYears();
-        int months = period.getMonths();
-        int days = period.getDays();
-       
-		ageField.setText(days + " Days, " + months + " Months, and " + years + " Years"); 		
+		//left empty for additional buttons
 	} //close action event
 
 	
