@@ -39,15 +39,17 @@ public class Student{
 		for(int i = 0; i < 10; i++) {
 			boolean numberCheck = false;
 			//set name
-			System.out.printf("Enter Student #%d's Last Name: ", i+1);
-			String tempName = scnr.next().toUpperCase();
 			System.out.printf("Enter Student #%d's First Name: ", i+1);
-			tempName = tempName +", " + scnr.next().toUpperCase();
+			String firstName = scnr.next().toUpperCase();
+			System.out.printf("Enter %s's Last Name: ", firstName);
+			String lastName = scnr.next().toUpperCase();
+
+			String fullName = lastName +", " + firstName;
 			scnr.nextLine();//prevent scnr skipping
 			
 			//try-catch for setting roll number as an integer
 			//set roll number
-			System.out.printf("Enter %s's Roll Number: ", tempName.substring(tempName.indexOf(" "), tempName.length()));
+			System.out.printf("Enter %s's Roll Number: ", firstName);
 			int tempRollNo = 0; 
 			while(!numberCheck) {
 				try {
@@ -61,10 +63,10 @@ public class Student{
 			scnr.nextLine();//prevent scnr skipping
 			
 			//set address
-			System.out.printf("Enter %s's Address: ", tempName.substring(tempName.indexOf(" "), tempName.length()));
+			System.out.printf("Enter %s's Address: ", firstName);
 			String tempAddress = scnr.nextLine();
 			//add student
-			students.add(new Student(tempRollNo, tempName, tempAddress));
+			students.add(new Student(tempRollNo, fullName, tempAddress));
 
 		}
 	

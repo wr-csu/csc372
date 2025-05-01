@@ -28,7 +28,7 @@ public class MergeSort {
 		int i = 0, j = 0, k = 0;
 		
 		while(i < leftLength && j < rightLength) {
-			if(leftHalf.get(i).rollno <= rightHalf.get(j).rollno) { // compare roll numbers
+			if(leftHalf.get(i).getRollNo() <= rightHalf.get(j).getRollNo()) { // compare roll numbers
 				students.set(k, leftHalf.get(i));
 				i++;//move lefthalf's position over to next number
 			}
